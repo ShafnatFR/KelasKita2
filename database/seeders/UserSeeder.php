@@ -10,7 +10,7 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-       
+        
         User::create([
             'username' => 'nadia',
             'email' => 'nadia@example.com',
@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'role' => 'murid',
         ]);
 
-       
+        
         User::factory()->count(10)->create();
     }
 }
