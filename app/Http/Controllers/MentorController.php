@@ -16,4 +16,13 @@ class MentorController extends Controller
 
         return redirect('/mentor/kelas')->with('success', 'Anda sekarang menjadi mentor');
     }
+    public function downgrade()
+    {
+        $user = auth()->user();
+
+        $user->role = 'murid';
+        $user->save();
+
+        return redirect('/dashboard')->with('success', 'Anda sekarang menjadi murid');
+    }
 }
