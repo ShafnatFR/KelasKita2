@@ -1,0 +1,25 @@
+<h2>Register</h2>
+
+@if($errors->any())
+    <div style="color:red">
+        {{ implode(', ', $errors->all()) }}
+    </div>
+@endif
+
+<form method="POST" action="/register">
+    @csrf
+
+    <label>Username</label><br>
+    <input type="text" name="username" required><br><br>
+
+    <label>Email</label><br>
+    <input type="email" name="email" required><br><br>
+
+    <label>Password</label><br>
+    <input type="password" name="password" required><br><br>
+
+    <button type="submit">Register</button>
+</form>
+
+<br>
+<a href="/login">Sudah punya akun?</a>
