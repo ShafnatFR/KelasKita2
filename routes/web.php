@@ -3,9 +3,19 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MentorController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\admin\ManageUser;
+use App\Http\Controllers\admin\ManageKelas;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/users', [ManageUser::class, 'index'])->name('kelola.user');
+
+    Route::get('/kelas', [ManageKelas::class, 'getClass'])->name('kelola.kelas');
+
+    Route::get('dashboardAdmin', [AuthController::class, 'dashboardAdmin'])->name('dashboardAdmin');
 });
 
 Route::get('/register', [AuthController::class, 'registerForm'])->name('register');
@@ -20,9 +30,6 @@ Route::get('/dashboard', [AuthController::class, 'dashboard'])
     ->middleware('auth')
     ->name('dashboard');
 
-Route::get('dashboardAdmin', [AuthController::class, 'dashboardAdmin'])
-    ->middleware('auth')
-    ->name('dashboardAdmin');
 
 Route::get('/jadi-mentor', [MentorController::class, 'upgrade'])
     ->middleware('auth')
@@ -34,4 +41,4 @@ Route::get('/jadi-murid', [MentorController::class, 'downgrade'])
 
 Route::post('loginAdmin', [AuthController::class, 'loginAdmin']);
 
-require __DIR__.'/mentor.php';
+require __DIR__ . '/mentor.php';
