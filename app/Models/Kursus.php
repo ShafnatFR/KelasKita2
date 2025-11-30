@@ -27,7 +27,7 @@ class Kursus extends Model
     // Relasi ke materi
     public function materi()
     {
-        //return $this->hasMany(Materi::class, 'kursus_id');
+        return $this->hasMany(Materi::class, 'kursus_id');
     }
 
     // Relasi ke kursus pengguna (murid)

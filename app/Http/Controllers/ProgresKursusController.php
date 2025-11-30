@@ -2,35 +2,59 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\ProgresKursus;
+use App\Models\KursusPengguna; 
+use App\Models\IsiMateri; 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProgresKursusController extends Controller
 {
-    
     public function updateProgress(Request $request)
     {
         $request->validate([
-            'kursus_id' => 'required|integer',
-            'materi_id' => 'required|integer',
-            'selesai'   => 'required|boolean',
+            'isi_materi_id' => 'required|exists:isi_materi,id',
+            'is_checked' => 'required|boolean',
         ]);
 
-        $progress = ProgresKursus::updateOrCreate(
+        $userId = Auth::id();
+        $isiMateri = IsiMateri::findOrFail($request->isi_materi_id);
+        $kursusId = $isiMateri->materi->kursus_id; 
+        $isChecked = $request->is_checked;
+
+        
+        ProgresKursus::updateOrCreate(
             [
-                'user_id'   => Auth::id(),
-                'kursus_id' => $request->kursus_id,
-                'materi_id' => $request->materi_id,
+                'kursus_id' => $kursusId,
+                'user_id' => $userId,
+                'isi_materi_id' => $isiMateri->id,
             ],
             [
-                'selesai' => $request->selesai,
+                'selesai' => $isChecked,
             ]
         );
 
+        
+        $totalMateri = IsiMateri::whereHas('materi', function ($query) use ($kursusId) {
+            $query->where('kursus_id', $kursusId);
+        })->count();
+
+        $materiSelesai = ProgresKursus::where('kursus_id', $kursusId)
+                                     ->where('user_id', $userId)
+                                     ->where('selesai', true)
+                                     ->count();
+
+        $persentaseBaru = ($totalMateri > 0) ? round(($materiSelesai / $totalMateri) * 100) : 0;
+
+       
+        KursusPengguna::where('user_id', $userId)
+                       ->where('kursus_id', $kursusId)
+                       ->update(['persentase_progress' => $persentaseBaru]);
+
+
         return response()->json([
-            'status' => 'success',
-            'progress' => $progress
+            'success' => true, 
+            'persentase_baru' => $persentaseBaru,
         ]);
     }
 }

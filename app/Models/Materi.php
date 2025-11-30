@@ -28,4 +28,24 @@ class Materi extends Model
     {
         return $this->hasMany(IsiMateri::class, 'id_materi');
     }
+
+     
+    public function progres()
+    {
+        return $this->hasMany(ProgresKursus::class, 'materi_id');
+    }
+
+ 
+    public function kursusPengguna()
+    {
+        return $this->hasManyThrough(
+            KursusPengguna::class,
+            Kursus::class,
+            'id',        
+            'kursus_id', 
+            'kelas_id',  
+            'id'       
+        );
+    }
 }
+

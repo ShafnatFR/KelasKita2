@@ -17,7 +17,7 @@ class UlasanController extends Controller
             'isi_ulasan' => 'nullable|string'
         ]);
 
-     
+       
         $totalMateri = ProgresKursus::where('kursus_id', $request->kursus_id)->count();
         $selesai = ProgresKursus::where('kursus_id', $request->kursus_id)
                                 ->where('selesai', true)
@@ -38,6 +38,17 @@ class UlasanController extends Controller
             ]
         );
 
-        return back()->with('success', 'Ulasan berhasil dikirim!');
+        
+        return redirect()->route('ulasan.hasil', $request->kursus_id)
+                         ->with('success', 'Ulasan berhasil dikirim!');
+    }
+
+    public function hasilUlasan($kursus_id)
+    {
+        $ulasan = Ulasan::where('user_id', Auth::id())
+                         ->where('kursus_id', $kursus_id)
+                         ->firstOrFail();
+
+        return view('murid.kursus.hasil_ulasan', compact('ulasan'));
     }
 }
