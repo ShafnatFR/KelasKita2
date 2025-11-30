@@ -2,7 +2,10 @@
 
 <p>Role: {{ auth()->user()->role }}</p>
 
-<a href="/mentor/kelas">Jadi Mentor</a>
+<form action="{{ route('jadi-mentor') }}" method="GET">
+    <button type="submit">Jadi Mentor</button>
+</form>
+
 
 <br><br>
 <a href="/logout">Logout</a>
