@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 
 namespace App\Http\Middleware;
 
@@ -19,4 +19,4 @@ class MentorMiddleware
 
         return $next($request);
     }
-}
+} -->
