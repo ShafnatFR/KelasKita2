@@ -5,6 +5,7 @@ use App\Http\Controllers\MentorController;
 use App\Http\Controllers\admin\ManageUser;
 use App\Http\Controllers\admin\ManageKelas;
 use App\Http\Controllers\admin\ManageLaporan;
+use App\Http\Controllers\admin\ManageMateri;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -48,8 +49,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // CRUD Kelas
     Route::resource('kelas', ManageKelas::class)->parameters(['kelas' => 'kelas']);
 
-    // CRUD User
-    Route::resource('laporan', ManageLaporan::class);
+    Route::resource('materi', ManageMateri::class);
 });
 
 require __DIR__ . '/mentor.php';
