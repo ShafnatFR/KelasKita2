@@ -9,13 +9,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('kursus_pengguna', function (Blueprint $table) {
-            $table->id();
-         
-            $table->foreignId('user_id')->constrained('tb_users')->onDelete('cascade');
-            $table->foreignId('course_id')->constrained('kursus')->onDelete('cascade'); 
+    
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('course_id');
+            
             $table->integer('progress_percentage')->default(0);
             $table->timestamp('enrolled_at')->useCurrent();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('tb_users')->onDelete('cascade');
+            $table->foreign('course_id')->references('id')->on('kursus')->onDelete('cascade');
+            $table->primary(['user_id', 'course_id']);
         });
     }
 
