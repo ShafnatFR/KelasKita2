@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MentorController;
 use App\Http\Controllers\admin\ManageUser;
 use App\Http\Controllers\admin\ManageKelas;
+use App\Http\Controllers\admin\ManageLaporan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -37,16 +38,18 @@ Route::post('loginAdmin', [AuthController::class, 'loginAdmin']);
 
 // --- GROUP ROUTE ADMIN (WAJIB ADA) ---
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-    
+
     // Dashboard Admin
     Route::get('dashboardAdmin', [AuthController::class, 'dashboardAdmin'])->name('dashboardAdmin');
 
-    // CRUD User (admin.users.index, dll)
-    Route::resource('users', ManageUser::class); 
+    // CRUD User
+    Route::resource('users', ManageUser::class);
 
-    // CRUD Kelas (admin.kelas.index, dll)
-    Route::resource('kelas', ManageKelas::class)->parameters(['kelas' => 'kelas']); 
+    // CRUD Kelas
+    Route::resource('kelas', ManageKelas::class)->parameters(['kelas' => 'kelas']);
+
+    // CRUD User
+    Route::resource('laporan', ManageLaporan::class);
 });
-// -------------------------------------
 
-require __DIR__.'/mentor.php';
+require __DIR__ . '/mentor.php';

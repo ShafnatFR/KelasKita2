@@ -13,7 +13,7 @@ class ManageKelas extends Controller
     public function index()
     {
         // Mengambil data kelas beserta data mentornya
-        $kelas = Kelas::with('mentor')->get(); 
+        $kelas = Kelas::with('mentor')->get();
         return view('admin.kelas.index', compact('kelas'));
     }
 
@@ -32,7 +32,7 @@ class ManageKelas extends Controller
         $request->validate([
             'nama_kelas' => 'required|string|max:255',
             'harga' => 'required|numeric',
-            'status_publikasi' => 'required|in:draft,publikasi',
+            'status_publikasi' => 'required|in:draft,pending,diterima,ditolak,non-aktif',
         ]);
 
         $kelas->update([
