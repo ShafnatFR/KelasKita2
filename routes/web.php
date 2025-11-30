@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MentorController;
+use App\Http\Controllers\admin\ManageUser;
+use App\Http\Controllers\admin\ManageKelas;
+use App\Http\Controllers\admin\ManageLaporan;
+use App\Http\Controllers\admin\ManageMateri;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KursusController;
 use App\Http\Controllers\ProgresKursusController;
@@ -13,6 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Auth Routes
 Route::get('/register', [AuthController::class, 'registerForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
@@ -21,10 +26,12 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// Dashboard Murid
 Route::get('/dashboard', [AuthController::class, 'dashboard'])
     ->middleware('auth')
     ->name('dashboard');
 
+// Role Management
 Route::get('/jadi-mentor', [MentorController::class, 'upgrade'])
     ->middleware('auth')
     ->name('jadi-mentor');
@@ -33,29 +40,21 @@ Route::get('/jadi-murid', [MentorController::class, 'downgrade'])
     ->middleware('auth')
     ->name('jadi-murid');
 
+Route::post('loginAdmin', [AuthController::class, 'loginAdmin']);
 
+// --- GROUP ROUTE ADMIN (WAJIB ADA) ---
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
 
-require __DIR__.'/mentor.php';
+    // Dashboard Admin
+    Route::get('dashboardAdmin', [AuthController::class, 'dashboardAdmin'])->name('dashboardAdmin');
 
+    // CRUD User
+    Route::resource('users', ManageUser::class);
 
+    // CRUD Kelas
+    Route::resource('kelas', ManageKelas::class)->parameters(['kelas' => 'kelas']);
 
-// Route Murid (Auth Required)
-Route::middleware(['auth'])->group(function () {
-
-    // Kursus yang Tersedia untuk Dibeli
-    Route::get('/kursus', [KursusController::class, 'index'])->name('kursus.index');
-    Route::get('/kursus/{id}', [KursusController::class, 'show'])->name('kursus.show');
-
- 
-   
-    Route::get('/my-courses/{kursusId}', [KursusPenggunaController::class, 'show'])->name('murid.kursus.detail'); // Rute baru yang memanggil fungsi show yang kita buat.
-
-    // Progres (Update Checkbox)
-    Route::post('/progres', [ProgresKursusController::class, 'updateProgress'])->name('progres.update'); // INI NAMA ROUTE ANDA
-
-    // Ulasan (Store)
-    Route::post('/ulasan', [UlasanController::class, 'store'])->name('ulasan.store');
-
-    // Hasil Ulasan
-    Route::get('/kursus/{id}/ulasan', [UlasanController::class, 'hasilUlasan'])->name('ulasan.hasil');
+    Route::resource('materi', ManageMateri::class);
 });
+
+require __DIR__ . '/mentor.php';

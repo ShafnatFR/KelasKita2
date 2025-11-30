@@ -4,6 +4,9 @@
 <a href="{{ route('jadi-murid') }}">
     <button>Kembali Jadi Murid</button>
 </a>
+<a href="{{ route('mentor.materi.index') }}">
+    <button style="background:green; color:white;">Kelola Materi</button>
+</a>
 
 
 <table border="1" cellpadding="10">

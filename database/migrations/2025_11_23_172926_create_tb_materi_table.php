@@ -13,11 +13,25 @@ return new class extends Migration
     {
         Schema::create('tb_materi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kelas_id')->constrained('tb_kelas')->onDelete('cascade');
-            $table->integer('urutan')->default('1');
+
+            // RELASI KE TB_KELAS
+            $table->foreignId('kelas_id')
+                  ->constrained('tb_kelas')
+                  ->onDelete('cascade');
+
+            $table->integer('urutan')->default(1);
+
             $table->string('judul_materi');
-            $table->text('deskripsi_materi');
-            $table->enum('status', ['draft', 'pending', 'diterima', 'ditolak', 'non-aktif']);
+            $table->text('deskripsi_materi')->nullable();
+
+            $table->enum('status', [
+                'draft',
+                'pending',
+                'diterima',
+                'ditolak',
+                'non-aktif'
+            ])->default('draft');
+
             $table->timestamps();
         });
     }

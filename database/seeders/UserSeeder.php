@@ -12,12 +12,10 @@ class UserSeeder extends Seeder
     {
         
         User::create([
-            'username' => 'nadia',
-            'email' => 'nadia@example.com',
-            'password' => Hash::make('nadia29'),
-            'no_telpon' => '081234567890',
-            'alamat' => 'Bandung',
-            'foto_profil' => 'default.png',
+        'username' => 'admin',
+            'email' => 'admin@kelaskita.com',
+            'password' => 12345678,
+            'role' => 'admin',
             'status' => 'aktif',
             'role' => 'murid',
         ]);
