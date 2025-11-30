@@ -11,12 +11,15 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-
+    
+    // Dashboard Admin
     Route::get('dashboardAdmin', [AuthController::class, 'dashboardAdmin'])->name('dashboardAdmin');
 
-    Route::resource('users', ManageUser::class);
+    // CRUD User (Otomatis: admin.users.index, admin.users.create, dll)
+    Route::resource('users', ManageUser::class); 
 
-    Route::get('/kelas', [ManageKelas::class, 'getClass'])->name('kelola.kelas');
+    // CRUD Kelas (Otomatis: admin.kelas.index, admin.kelas.create, dll)
+    Route::resource('kelas', ManageKelas::class)->parameters(['kelas' => 'kelas']); 
 });
 
 Route::get('/register', [AuthController::class, 'registerForm'])->name('register');
