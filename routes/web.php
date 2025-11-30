@@ -20,6 +20,10 @@ Route::get('/dashboard', [AuthController::class, 'dashboard'])
     ->middleware('auth')
     ->name('dashboard');
 
+Route::get('dashboardAdmin', [AuthController::class, 'dashboardAdmin'])
+    ->middleware('auth')
+    ->name('dashboardAdmin');
+
 Route::get('/jadi-mentor', [MentorController::class, 'upgrade'])
     ->middleware('auth')
     ->name('jadi-mentor');
