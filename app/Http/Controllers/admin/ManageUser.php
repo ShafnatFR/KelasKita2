@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User; // <--- GANTI INI (Arahkan ke App\Models\User)
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash; // <--- TAMBAHKAN INI (Untuk Hash::make)
+use Illuminate\Support\Facades\Hash;
 
 class ManageUser extends Controller
 {

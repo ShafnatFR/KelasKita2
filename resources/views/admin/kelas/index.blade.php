@@ -34,10 +34,15 @@
                 </td>
                 <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
                 <td>
-                    @if($item->status_publikasi == 'publikasi')
-                        <span style="color:green; font-weight:bold;">Publikasi</span>
+                    <!-- Logika tampilan status -->
+                    @if($item->status_publikasi == 'diterima')
+                        <span style="color:green; font-weight:bold;">Diterima (Aktif)</span>
+                    @elseif($item->status_publikasi == 'pending')
+                        <span style="color:blue; font-weight:bold;">Pending</span>
+                    @elseif($item->status_publikasi == 'ditolak')
+                        <span style="color:red; font-weight:bold;">Ditolak</span>
                     @else
-                        <span style="color:orange; font-weight:bold;">Draft</span>
+                        <span style="color:orange; font-weight:bold;">{{ ucfirst($item->status_publikasi) }}</span>
                     @endif
                 </td>
                 <td>

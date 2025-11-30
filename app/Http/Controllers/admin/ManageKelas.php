@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\admin; // 1. Namespace diperbaiki
+namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kelas;
-use App\Models\User; // Import User untuk data Mentor jika perlu
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,12 +12,12 @@ class ManageKelas extends Controller
     // MENAMPILKAN DAFTAR KELAS
     public function index()
     {
-        // Mengambil data kelas beserta data mentornya (Eager Loading)
+        // Mengambil data kelas beserta data mentornya
         $kelas = Kelas::with('mentor')->get(); 
         return view('admin.kelas.index', compact('kelas'));
     }
 
-    // FORM EDIT KELAS (Admin biasanya hanya edit status/kategori)
+    // FORM EDIT KELAS
     public function edit($id)
     {
         $kelas = Kelas::findOrFail($id);
@@ -34,7 +33,6 @@ class ManageKelas extends Controller
             'nama_kelas' => 'required|string|max:255',
             'harga' => 'required|numeric',
             'status_publikasi' => 'required|in:draft,publikasi',
-            // Tambahkan validasi lain jika perlu
         ]);
 
         $kelas->update([
@@ -51,7 +49,6 @@ class ManageKelas extends Controller
     {
         $kelas = Kelas::findOrFail($id);
 
-        // Hapus foto jika ada
         if ($kelas->foto && Storage::exists('public/' . $kelas->foto)) {
             Storage::delete('public/' . $kelas->foto);
         }

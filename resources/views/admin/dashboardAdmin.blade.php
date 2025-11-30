@@ -13,7 +13,6 @@
         <li><a href="{{ route('admin.users.index') }}">Kelola User</a></li>
         <li><a href="{{ route('admin.kelas.index') }}">Kelola Kelas</a></li>
     </ul>
-    
     <br>
     <a href="{{ route('logout') }}">Logout</a>
 </body>
