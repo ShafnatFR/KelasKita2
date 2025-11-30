@@ -48,8 +48,8 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($request->only('email', 'password'))) {
-            if(Auth::user()->role === 'admin'){
-                return redirect()->route('dashboardAdmin');
+            if (Auth::user()->role === 'admin') {
+                return redirect()->route('admin.dashboardAdmin');
             } else {
                 return redirect()->route('dashboard');
             }
