@@ -11,11 +11,12 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/users', [ManageUser::class, 'index'])->name('kelola.user');
-
-    Route::get('/kelas', [ManageKelas::class, 'getClass'])->name('kelola.kelas');
 
     Route::get('dashboardAdmin', [AuthController::class, 'dashboardAdmin'])->name('dashboardAdmin');
+
+    Route::resource('users', ManageUser::class);
+
+    Route::get('/kelas', [ManageKelas::class, 'getClass'])->name('kelola.kelas');
 });
 
 Route::get('/register', [AuthController::class, 'registerForm'])->name('register');
