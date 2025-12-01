@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Kelas extends Model
 {
+    use HasFactory;
+    
     protected $table = 'tb_kelas';
 
     protected $fillable = [
