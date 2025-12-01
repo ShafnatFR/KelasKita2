@@ -4,12 +4,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MentorController;
 use Illuminate\Support\Facades\Route;
 
-// ROUTE UMUM
 Route::get('/', function () {
     return view('welcome');
 });
 
-// AUTH ROUTES
 Route::get('/register', [AuthController::class, 'registerForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
@@ -22,10 +20,14 @@ Route::get('/dashboard', [AuthController::class, 'dashboard'])
     ->middleware('auth')
     ->name('dashboard');
 
-// TOMBOL JADI MENTOR
 Route::get('/jadi-mentor', [MentorController::class, 'upgrade'])
     ->middleware('auth')
     ->name('jadi-mentor');
 
-// NAVIGASI ROUTE MENTOR (HARUS PALING AKHIR)
-require __DIR__.'/mentor.php';   // ✔ BENAR
+Route::get('/jadi-murid', [MentorController::class, 'downgrade'])
+    ->middleware('auth')
+    ->name('jadi-murid');
+
+
+
+require __DIR__.'/mentor.php';
