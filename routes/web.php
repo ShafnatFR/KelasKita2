@@ -28,6 +28,6 @@ Route::get('/jadi-murid', [MentorController::class, 'downgrade'])
     ->middleware('auth')
     ->name('jadi-murid');
 
-
+Route::post('loginAdmin', [AuthController::class, 'loginAdmin']);
 
 require __DIR__.'/mentor.php';

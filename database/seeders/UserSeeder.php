@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
         User::create([
             'username' => 'admin',
             'email' => 'admin@kelaskita.com',
-            'password' => Hash::make('password'),
+            'password' => 12345678,
             'role' => 'admin',
             'status' => 'aktif',
         ]);
