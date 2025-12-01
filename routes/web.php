@@ -42,18 +42,19 @@ Route::get('/jadi-murid', [MentorController::class, 'downgrade'])
 
 Route::post('loginAdmin', [AuthController::class, 'loginAdmin']);
 
-// --- GROUP ROUTE ADMIN (WAJIB ADA) ---
+// ROUTE ADMIN
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
 
-    // Dashboard Admin
+    // Admin
     Route::get('dashboardAdmin', [AuthController::class, 'dashboardAdmin'])->name('dashboardAdmin');
 
-    // CRUD User
+    // User
     Route::resource('users', ManageUser::class);
 
-    // CRUD Kelas
+    // Kelas
     Route::resource('kelas', ManageKelas::class)->parameters(['kelas' => 'kelas']);
 
+    // Materi
     Route::resource('materi', ManageMateri::class);
 });
 

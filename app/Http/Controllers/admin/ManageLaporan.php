@@ -11,7 +11,6 @@ class ManageLaporan extends Controller
     // Menampilkan semua laporan
     public function index()
     {
-        // Mengambil data laporan beserta relasi user dan kelas, diurutkan terbaru
         $laporans = Laporan::with(['user', 'kelas'])->latest()->get();
         return view('admin.laporan.index', compact('laporans'));
     }

@@ -11,8 +11,6 @@ class ManageMateri extends Controller
     // MENAMPILKAN SEMUA MATERI
     public function index()
     {
-        // Mengambil materi beserta relasi kelas dan mentornya (via kelas)
-        // Diurutkan dari yang terbaru
         $materi = Materi::with(['kelas.mentor'])->latest()->get();
         return view('admin.materi.index', compact('materi'));
     }
