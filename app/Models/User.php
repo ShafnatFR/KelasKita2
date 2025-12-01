@@ -30,4 +30,17 @@ class User extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    // app/Models/User.php
+    public function mentor()
+    {
+        // Relasi 1-to-1 ke tabel tb_mentor
+        return $this->hasOne(Mentor::class, 'user_id');
+    }
+
+    public function kelas()
+    {
+        // Jika user adalah mentor, dia punya banyak kelas
+        return $this->hasMany(Kelas::class, 'mentor_id');
+    }
 }
