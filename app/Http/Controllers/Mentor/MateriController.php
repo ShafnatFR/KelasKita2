@@ -68,4 +68,12 @@ class MateriController extends Controller
         return redirect()->route('mentor.materi.index')
                          ->with('success', 'Materi berhasil dihapus');
     }
+	
+	public function search($id){
+		$materi = Materi::findOrFail($id);
+		
+		return redirect()->route('mentor.materi.index')
+						->with('Materi sudah ditemukan');
+		}
+		
 }

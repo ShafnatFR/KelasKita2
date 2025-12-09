@@ -38,8 +38,8 @@
 
             @elseif($i->tipe == 'file')
                 <a href="{{ asset('storage/'.$i->file_path) }}" target="_blank">
-                    Download File
-                </a>
+                {{ basename($i->file_path) }}
+            </a>
             @endif
         </td>
 

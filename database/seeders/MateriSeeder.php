@@ -22,7 +22,8 @@ class MateriSeeder extends Seeder
         // Untuk setiap kelas, buatkan 3-5 materi
         foreach ($kelas as $k) {
             Materi::factory(rand(3, 5))->create([
-                'kelas_id' => $k->id // Pastikan materi terhubung ke kelas ini
+                'kelas_id' => $k->id 
+                
             ])->each(function ($materi) {
                 
                 // Untuk setiap materi, buatkan 1 isi materi

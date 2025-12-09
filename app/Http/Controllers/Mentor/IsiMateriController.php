@@ -10,9 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class IsiMateriController extends Controller
 {
-    // =============================
     // LIST SEMUA ISI MATERI MENTOR
-    // =============================
     public function index()
     {
         $mentorId = Auth::id();
@@ -25,9 +23,7 @@ class IsiMateriController extends Controller
     }
 
 
-    // =============================
     // FORM TAMBAH ISI MATERI
-    // =============================
     public function create()
     {
         // Ambil materi milik mentor
@@ -38,10 +34,7 @@ class IsiMateriController extends Controller
         return view('mentor.isi_materi.create', compact('materi'));
     }
 
-
-    // =============================
     // SIMPAN ISI MATERI BARU
-    // =============================
     public function store(Request $request)
     {
         $request->validate([
@@ -152,9 +145,8 @@ class IsiMateriController extends Controller
     }
 
 
-    // =============================
+  
     // HAPUS ISI MATERI
-    // =============================
     public function destroy($id)
     {
         IsiMateri::findOrFail($id)->delete();
@@ -164,9 +156,7 @@ class IsiMateriController extends Controller
     }
 
 
-    // =============================
     // KONVERSI LINK YOUTUBE BIASA → EMBED
-    // =============================
     private function convertYoutubeToEmbed($url)
     {
         // format watch?v=

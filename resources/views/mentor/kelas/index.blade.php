@@ -14,6 +14,7 @@
         <th>Nama Kelas</th>
         <th>Kategori</th>
         <th>Harga</th>
+        <th>Status</th>
         <th>Aksi</th>
     </tr>
 
@@ -22,6 +23,15 @@
         <td>{{ $k->nama_kelas }}</td>
         <td>{{ $k->kategori }}</td>
         <td>{{ $k->harga }}</td>
+        <td><span style="font-weight: bold; color:
+            @if($k->status_publikasi == 'draft') gray
+            @elseif($k->status_publikasi == 'pending') orange
+            @elseif($k->status_publikasi == 'diterima') green
+            @elseif($k->status_publikasi == 'ditolak') red
+            @endif
+        ">
+            {{ $k->status_publikasi }}
+        </span></td>
         <td>
             <a href="{{ route('mentor.kelas.edit',$k->id) }}">Edit</a>
 
@@ -32,5 +42,6 @@
         </td>
     </tr>
     @endforeach
+    <a href="/logout">Logout</a>
 
 </table>

@@ -28,6 +28,10 @@
                 @csrf @method('DELETE')
                 <button type="submit">Hapus</button>
             </form>
+
+                <form action="{{ route('mentor.materi.search') }}" method="GET" style="display:inline;">
+                <input type="text" name="query" placeholder="Cari Materi">
+                <button type="submit">Cari</button>
         </td>
     </tr>
     @endforeach

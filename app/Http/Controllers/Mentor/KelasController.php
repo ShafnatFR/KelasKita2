@@ -69,4 +69,6 @@ class KelasController extends Controller
         return redirect()->route('mentor.kelas.index')
                          ->with('success', 'Kelas berhasil dihapus!');
     }
+
+    
 }

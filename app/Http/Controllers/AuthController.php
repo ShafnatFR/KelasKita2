@@ -13,7 +13,7 @@ class AuthController extends Controller
     {
         return view('auth.register');
     }
-
+    
     // PROSES REGISTER
     public function register(Request $request)
     {
