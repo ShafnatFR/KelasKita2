@@ -27,20 +27,20 @@ class ManageUser extends Controller
     {
         $request->validate([
             'username' => 'required|unique:tb_users',
-            'email'    => 'required|email|unique:tb_users',
+            'email' => 'required|email|unique:tb_users',
             'password' => 'required|min:6',
-            'role'     => 'required|in:murid,mentor,admin',
-            'status'   => 'required|in:aktif,non-aktif',
+            'role' => 'required|in:murid,mentor,admin',
+            'status' => 'required|in:aktif,non-aktif',
         ]);
 
         User::create([
             'username' => $request->username,
-            'email'    => $request->email,
-            'password' => Hash::make($request->password), 
-            'role'     => $request->role,
-            'status'   => $request->status,
-            'no_telpon'=> $request->no_telpon,
-            'alamat'   => $request->alamat,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => $request->role,
+            'status' => $request->status,
+            'no_telpon' => $request->no_telpon,
+            'alamat' => $request->alamat,
         ]);
 
         return redirect()->route('admin.users.index')->with('success', 'User berhasil ditambahkan');
@@ -59,19 +59,19 @@ class ManageUser extends Controller
         $user = User::findOrFail($id);
 
         $request->validate([
-            'username' => 'required|unique:tb_users,username,'.$id,
-            'email'    => 'required|email|unique:tb_users,email,'.$id,
-            'role'     => 'required|in:murid,mentor,admin',
-            'status'   => 'required|in:aktif,non-aktif',
+            'username' => 'required|unique:tb_users,username,' . $id,
+            'email' => 'required|email|unique:tb_users,email,' . $id,
+            'role' => 'required|in:murid,mentor,admin',
+            'status' => 'required|in:aktif,non-aktif',
         ]);
 
         $data = [
             'username' => $request->username,
-            'email'    => $request->email,
-            'role'     => $request->role,
-            'status'   => $request->status,
-            'no_telpon'=> $request->no_telpon,
-            'alamat'   => $request->alamat,
+            'email' => $request->email,
+            'role' => $request->role,
+            'status' => $request->status,
+            'no_telpon' => $request->no_telpon,
+            'alamat' => $request->alamat,
         ];
 
         // Update password hanya jika diisi
